@@ -1,26 +1,45 @@
+//
 import Head from "next/head";
-import Footer from "../components/Footer";
+import Header from "@components/Header";
+import Footer from "@components/Footer";
+import ServiceTable from "@components/ServiceTable";
+import ServiceForm from "@components/ServiceForm";
+import HeroCarousel from "@components/HeroCarousel";
+//
+import { useState, useEffect } from "react";
+//
 
-const onFilterKeyUp = (e) => {
-  const filter = e.target.value.toLowerCase();
-  const items = document.querySelectorAll(".items .item");
-  items.forEach((item) => {
-    const label = item.querySelector("label").innerText.toLowerCase();
-    if (label.indexOf(filter) > -1) {
-      item.style.display = "block";
-    } else {
-      item.style.display = "none";
-    }
-  });
-};
+const slidesMax5 = [
+  {
+    mainImage: "/images/showroom/display-1.jpg",
+    thumbnail: "/images/showroom/display-1-thumbnail.jpg",
+    title: "Slide 1",
+    description: "Description for Slide 1",
+    cta: "Learn More",
+  },
+  {
+    mainImage: "/images/showroom/display-2.jpg",
+    thumbnail: "/images/showroom/display-1-thumbnail.jpg",
+    title: "Slide 2",
+    description: "Description for Slide 2",
+    cta: "Discover",
+  },
+  // Add more slides as needed
+];
 
-const onClickThumbnail = (e) => {
-  const thumbnails = document.querySelectorAll(".thumbnails .thumbnail");
-  thumbnails.forEach((thumbnail) => {
-    thumbnail.classList.remove("active");
-  });
-  e.target.parentNode.classList.add("active");
-};
+const services = [
+  { id: 1, name: "High / Mid / Low Fade", price: 45 },
+  { id: 2, name: "Gentlemens Haircut", price: 50 },
+  { id: 3, name: "Buzz Haircut", price: 30 },
+  { id: 4, name: "All Even Haircut", price: 30 },
+  { id: 5, name: "Beard Trim & Lineup", price: 30 },
+  { id: 6, name: "Lineup", price: 25 },
+  { id: 7, name: "Shape Up", price: 30 },
+  { id: 8, name: "Hot Towel Shave", price: 75 },
+  { id: 9, name: "Hot Towel Shave Face", price: 50 },
+  { id: 10, name: "Micro Fibers / Face Paint", price: 18 },
+  { id: 11, name: "Custom & Design Cut", price: 60 },
+];
 
 export default function Home() {
   return (
@@ -30,223 +49,156 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header>
-        <nav>
-          <ul>
-            <li>
-              <a href="#work">
-                <img src="" />
-                <span>Work</span>
-              </a>
-            </li>
-            <li>
-              <a href="#services">
-                <img src="" />
-                <span>Services</span>
-              </a>
-            </li>
-            <li className="logo">
-              <a href="#about">
-                <img
-                  src="/logo-netlify.svg"
-                  alt="Netlify Logo"
-                  width={100}
-                  height={100}
-                />
-              </a>
-            </li>
-            <li>
-              <a href="#products">
-                <img src="" />
-                <span>Products</span>
-              </a>
-            </li>
-            <li>
-              <a href="#contact">
-                <img src="" />
-                <span>Contact</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </header>
+      <Header />
       <main>
-        <section className="hero">
-          <div className="hero-text container">
-            <h1>Custom Fades</h1>
-            <h2>Barber Shop</h2>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-              voluptatem, quia voluptate, aperiam, quidem quod voluptatibus
-              voluptates doloribus quos quibusdam fugit. Quisquam voluptatem,
-              quia voluptate, aperiam, quidem quod voluptatibus voluptates
-              doloribus quos quibusdam fugit.
-            </p>
-            <a href="#contact" className="button primary">
-              Book Now
-            </a>
-            <a href="#contact" className="button ghost primary">
-              Showroom
-            </a>
-            <div className="thumbnails flex gap-4">
-              <div className="thumbnail" data>
-                <span>01</span>
-                <img
-                  src="/images/headshot-isaiah.jpg"
-                  alt=""
-                  width={164}
-                  height={164}
-                />
-              </div>
-              <div className="thumbnail">
-                <span>01</span>
-                <img
-                  src="/images/headshot-isaiah.jpg"
-                  alt=""
-                  width={164}
-                  height={164}
-                />
-              </div>
-              <div className="thumbnail">
-                <span>01</span>
-                <img
-                  src="/images/headshot-isaiah.jpg"
-                  alt=""
-                  width={164}
-                  height={164}
-                />
-              </div>
-              <div className="thumbnail">
-                <span>01</span>
-                <img
-                  src="/images/headshot-isaiah.jpg"
-                  alt=""
-                  width={164}
-                  height={164}
-                />
-              </div>
-            </div>
+        <section id="work" className="hero">
+          <HeroCarousel slides={slidesMax5} />
+        </section>
+        <section id="services" className="background-white">
+          <div className="sticky light-bg"></div>
+          <div className="container">
+            <h3>Services</h3>
+            {/* <ServiceTable services={services} /> */}
+            <ServiceForm />
           </div>
         </section>
-        <section id="work">
+        <section id="about">
+          <div className="sticky dark-bg"></div>
           <div className="container row">
-            <div className="col-6 text-white">
-              <h3 className="display">Work</h3>
+            <div className="col-6 text-white" style={{ width: "66.6666%" }}>
+              <h3 className="display">About Me</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quisquam voluptatem, quia voluptate, aperiam, quidem quod
-                voluptatibus voluptates doloribus quos quibusdam fugit. Quisquam
-                voluptatem, quia voluptate, aperiam, quidem quod voluptatibus
-                voluptates doloribus quos quibusdam fugit.
+                Yo, it's Custom Fades – beyond cuts, it's a whole vibe! I'm Rob,
+                more than a barber, I'm family. In our shop, we celebrate black
+                excellence, blending tradition with trends. Every cut tells YOUR
+                story. From classic fades to unique designs, I'm your architect
+                of style. Step in for an experience, not just a cut. 🔥💈
+                #CustomFades #BlackExcellence
               </p>
+              <p>Lets get you cleaned up!</p>
               <a href="#services" className="button primary">
-                Lets get started
+                Set Appointment
               </a>
             </div>
-            <div className="col-6">
+            <div className="col-6 logo-black" style={{ width: "33.3333%" }}>
               <img
-                className=""
-                src="/images/robertdavis.png"
+                style={{ display: "block", margin: "0 auto" }}
+                className="full-width"
+                src="/images/robert-davis-profile-revised.png"
                 alt="Portrait photo of Robert Davis, Owner of Custom Fades Barber Shop"
               />
             </div>
           </div>
         </section>
-        <section id="services" className="background-white">
-          <div className="container">
-            <h3>Services</h3>
-            <div className="row">
-              <div className="col-6 frame">
-                <img src="/images/boy.png" alt="boy" />
-                <h3>Boy</h3>
-              </div>
-              <div className="col-6 frame">
-                <img src="/images/boy.png" alt="boy" />
-                <h3>Men</h3>
-              </div>
-            </div>
-            <div className="filter">
-              <input
-                type="text"
-                placeholder="What are you looking for?"
-                onKeyUp={onFilterKeyUp}
-              />
-            </div>
-            <div className="items">
-              <div className="item">
-                <label>Men's haircut</label>
-                <span>
-                  <i>from $50</i>
-                </span>
-              </div>
-              <div className="item">
-                <label>Haircut under the nozzle</label>
-                <span>
-                  <i>from $300</i>
-                </span>
-              </div>
-              <div className="item">
-                <label>Boys up to 12 years</label>
-                <span>
-                  <i>from $300</i>
-                </span>
-              </div>
-              <div className="item">
-                <label>Mustache and beard haircut</label>
-                <span>
-                  <i>from $300</i>
-                </span>
-              </div>
-              <div className="item">
-                <label>Men's haircut + beard haircut</label>
-                <span>
-                  <i>from $300</i>
-                </span>
-              </div>
-              <div className="item">
-                <label>Haircut + beard</label>
-                <span>
-                  <i>from $300</i>
-                </span>
-              </div>
-              <div className="item">
-                <label>Head shave</label>
-                <span>
-                  <i>from $300</i>
-                </span>
-              </div>
-              <div className="item">
-                <label>Royal shave</label>
-                <span>
-                  <i>from $300</i>
-                </span>
-              </div>
-            </div>
+        {/* <section id="merch">
+          <div class="container">
+            <h3 className="display text-white">Products</h3>
           </div>
-        </section>
-        <section id="products" className="d-none">
-          Products
-        </section>
-        <section id="about" className="background-white d-none">
-          about
-        </section>
+        </section> */}
         <section id="contact">
           <div className="container">
-            <form name="contact" netlify className="col-8">
-              <p>
-                <label>
-                  Name <input type="text" name="name" />
-                </label>
-              </p>
-              <p>
-                <label>
-                  Email <input type="email" name="email" />
-                </label>
-              </p>
-              <p>
-                <button type="submit">Send</button>
-              </p>
-            </form>
+            <h3 style={{ marginBottom: "1em" }} className="display text-white">
+              Wall of Fades
+            </h3>
+            <div class="insta-list">
+              <div
+                style={{
+                  backgroundImage:
+                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                }}
+              ></div>
+              <div
+                style={{
+                  backgroundImage:
+                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                }}
+              ></div>
+              <div
+                style={{
+                  backgroundImage:
+                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                }}
+              ></div>
+              <div
+                style={{
+                  backgroundImage:
+                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                }}
+              ></div>
+              <div
+                style={{
+                  backgroundImage:
+                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                }}
+              ></div>
+              <div
+                style={{
+                  backgroundImage:
+                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                }}
+              ></div>
+              <div
+                style={{
+                  backgroundImage:
+                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                }}
+              ></div>
+              <div
+                style={{
+                  backgroundImage:
+                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                }}
+              ></div>
+              <div
+                style={{
+                  backgroundImage:
+                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                }}
+              ></div>
+              <div
+                style={{
+                  backgroundImage:
+                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                }}
+              ></div>
+              <div
+                style={{
+                  backgroundImage:
+                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                }}
+              ></div>
+              <div
+                style={{
+                  backgroundImage:
+                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                }}
+              ></div>
+              <div
+                style={{
+                  backgroundImage:
+                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                }}
+              ></div>
+              <div
+                style={{
+                  backgroundImage:
+                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                }}
+              ></div>
+              <div
+                style={{
+                  backgroundImage:
+                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                }}
+              ></div>
+              <a
+                className="button primary"
+                href="https://www.instagram.com/ballsbarbershopkyiv/"
+                target="_blank"
+              >
+                View Instagram
+              </a>
+            </div>
           </div>
         </section>
       </main>
