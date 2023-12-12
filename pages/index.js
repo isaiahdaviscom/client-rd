@@ -80,7 +80,7 @@ export default function Home() {
       <Head>
         <title>Custom Fades</title>
         <link rel="icon" href="/favicon.ico" />
-        <body className={status} />
+        {/* <body className={status} /> */}
       </Head>
 
       <Header />
