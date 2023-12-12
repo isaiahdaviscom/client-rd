@@ -43,38 +43,38 @@ const services = [
 ];
 
 export default function Home() {
-  // const [status, setStatus] = useState("checking");
+  const [status, setStatus] = useState("checking");
 
-  // useEffect(() => {
-  //   function updateStatus() {
-  //     // Check online status
-  //     if (typeof window !== "undefined" && !window.navigator.onLine) {
-  //       setStatus("offline");
-  //       return;
-  //     }
+  useEffect(() => {
+    function updateStatus() {
+      // Check online status
+      if (typeof window !== "undefined" && !window.navigator.onLine) {
+        setStatus("offline");
+        return;
+      }
 
-  //     // Check the time and weekday
-  //     const centralTime = new Date(
-  //       new Date().toLocaleString("en-US", { timeZone: "America/Chicago" })
-  //     );
-  //     const hour = centralTime.getHours();
-  //     const dayOfWeek = centralTime.getDay();
+      // Check the time and weekday
+      const centralTime = new Date(
+        new Date().toLocaleString("en-US", { timeZone: "America/Chicago" })
+      );
+      const hour = centralTime.getHours();
+      const dayOfWeek = centralTime.getDay();
 
-  //     if (hour >= 2 && hour < 17 && dayOfWeek >= 1 && dayOfWeek <= 7) {
-  //       setStatus("online");
-  //     } else {
-  //       setStatus("offline");
-  //     }
-  //   }
+      if (hour >= 2 && hour < 17 && dayOfWeek >= 1 && dayOfWeek <= 7) {
+        setStatus("online");
+      } else {
+        setStatus("offline");
+      }
+    }
 
-  //   updateStatus();
+    updateStatus();
 
-  //   // Check every minute
-  //   const interval = setInterval(updateStatus, 60 * 1000);
+    // Check every minute
+    const interval = setInterval(updateStatus, 60 * 1000);
 
-  //   // Cleanup on component unmount
-  //   return () => clearInterval(interval);
-  // }, []);
+    // Cleanup on component unmount
+    return () => clearInterval(interval);
+  }, []);
   return (
     <>
       <Head>
