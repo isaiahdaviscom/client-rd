@@ -1,10 +1,10 @@
 import '@styles/globals.css'
-import GTM from '@components/GTM';
+// import GTM from '@components/GTM';
 
 function Application({ Component, pageProps }) {
   return (
     <>
-      <GTM />
+      {/* <GTM /> */}
       <Component {...pageProps} />
     </>
   )
