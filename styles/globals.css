@@ -1,14 +1,57 @@
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: Helvetica Neue, Helvetica, Arial, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, sans-serif;
   background-color: #231F20;
   scroll-behavior: smooth;
 }
 
-* {
-  box-sizing: border-box;
+html,
+body,
+textarea {
+  font-family: Helvetica Neue, Helvetica, Arial, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, sans-serif;
+}
+
+body {
+  counter-reset: instaList 0;
+}
+
+p {
+  line-height: 2em;
+}
+
+input,
+textarea,
+select,
+input[type='text'],
+input[type='email'],
+input[type='tel'],
+input[type='number'],
+input[type='password'],
+textarea,
+button[type='submit'] {
+  font-size: 1rem;
+  border-radius: 0.5em;
+  border: 1px solid #000000;
+}
+
+button[type='submit'] {
+  background-color: #BFBB50;
+  color: #000000;
+  padding: 1em 2em;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+label {
+  color: #BFBB50;
+  padding-right: 1em;
+  line-height: 2em;
 }
 
 header {
@@ -67,6 +110,10 @@ section {
   width: 100%;
 }
 
+#contact {
+  padding-bottom: 4em;
+}
+
 input[type='text'],
 input[type='email'],
 input[type='tel'],
@@ -91,6 +138,13 @@ select {
   transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out, color 0.3s ease-in-out;
   border-style: solid;
   border-width: 2px;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .button {
+    width: 100%;
+  }
 }
 
 .ghost {
@@ -130,6 +184,11 @@ h3 {
   font-weight: 700;
   line-height: 1.2;
   margin: 0;
+  color: #BFBB50;
+}
+
+h3.display {
+  color: #BFBB50;
 }
 
 /* Layout */
@@ -150,6 +209,10 @@ h3 {
   display: flex;
 }
 
+.col-12 {
+  width: 100%;
+}
+
 .col-6 {
   width: 50%;
 }
@@ -163,12 +226,12 @@ h3 {
 }
 
 @media screen and (max-width: 768px) {
+
   .col-8,
   .col-6,
   .col-md-6 {
-    width: 100%!important;
+    width: 100% !important;
   }
-  
 }
 
 @media (max-width: 768px) {
@@ -286,6 +349,26 @@ nav .menu-item div img {
   height: 100%;
 }
 
+.logo {
+  flex-direction: column;
+  color: white;
+}
+
+.online span {
+  color: green;
+}
+
+.offline span {
+  color: red;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 4px 1em;
+  background-color: #231F20;
+  border-radius: 5px;
+}
+
 .logo a {
   position: relative;
 }
@@ -317,6 +400,11 @@ a svg {
   position: relative;
 }
 
+a,
+a span {
+  color: #BFBB50;
+}
+
 .square {
   width: 42px;
   height: 42px;
@@ -342,7 +430,7 @@ a svg {
 
 .sticky {
   position: sticky;
-  height: 138px;
+  height: 150px;
   top: 0;
 }
 
@@ -364,17 +452,22 @@ a svg {
 
 .logo-black {
   background-image: url(/images/black-logo.svg);
-  background-size: contain;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 #booking {
   width: 700px;
+  height: 1200px;
 }
 
 @media screen and (max-width: 768px) {
   #booking {
-    height: 1200px;
+    margin-right: 0 !important;
+    margin-left: -1em !important;
+    width: calc(100vw) !important;
   }
+
   #about .row {
     flex-direction: column-reverse;
   }
@@ -398,19 +491,45 @@ a svg {
   align-items: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  position: relative;
+  /* position: relative; */
   overflow: hidden;
   margin: 0 auto;
+  gap: 3px;
 }
 
 .insta-list div {
-  width: 19%;
-  margin: .5%;
-  opacity: .4;
+  width: calc(20% - 3px);
+  /* margin: .5%; */
+  /* opacity: .4; */
   background-position: 50%;
   background-size: cover;
   background-repeat: no-repeat;
   aspect-ratio: 1/1;
+  /* position: relative; */
+}
+
+.insta-list div::before {
+  counter-increment: instaList;
+  content: counter(instaList);
+  color: black;
+  background-color: white;
+  height: 2em;
+  width: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 0;
+  /* position: relative; */
+}
+
+@media screen and (max-width: 768px) {
+  .insta-list div {
+    width: calc(33.3333% - 3px);
+  }
+
+  .insta-list div:last-of-type {
+    display: none;
+  }
 }
 
 .insta-list a {
@@ -422,3 +541,27 @@ a svg {
   transform: translate(-50%, -50%);
 }
 
+@media screen and (max-width: 768px) {
+  .insta-list a {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    top: 0;
+    left: 0;
+    transform: translate(0, 0);
+    position: relative;
+  }
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -1em;
+}
+
+form [type="submit"] {
+  flex: 0;
+}
+
+.d-block {
+  display: block;
+}

@@ -14,12 +14,19 @@ export default function Header({ title }) {
   
       // Check the time and weekday
       const centralTime = new Date(
-        new Date().toLocaleString("en-US", { timeZone: "America/Chicago" })
+        new Date().toLocaleString("en-US", { timeZone: "America/New_York" })
       );
-      const hour = centralTime.getHours();
-      const dayOfWeek = centralTime.getDay();
-  
-      if (hour >= 2 && hour < 17 && dayOfWeek >= 1 && dayOfWeek <= 7) {
+      const currentDate = new Date();
+      const currentDay = currentDate.getDay();
+      const currentHour = currentDate.getHours();
+
+      // Check if it's Tuesday to Friday (Tuesday = 2, Wednesday = 3, Thursday = 4, Friday = 5)
+      const isWeekday = currentDay >= 2 && currentDay <= 5;
+
+      // Check if it's between 11 AM and 6:30 PM
+      const isBusinessHours = currentHour >= 11 && (currentHour < 18 || (currentHour === 18 && currentDate.getMinutes() <= 30));
+
+      if (isWeekday && isBusinessHours) {
         setStatus("online");
       } else {
         setStatus("offline");
@@ -83,6 +90,9 @@ export default function Header({ title }) {
                   height={96}
                 />
               </a>
+              <span>{
+                status === 'online' ? 'Open' : 'Closed' 
+              }</span>
             </li>
             <li>
               <a href="#merch" className="menu-item">

@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <>
       <footer className={styles.footer}>
-        <small>Copyright &copy; {currentYear}</small>
+        <p><small>Copyright &copy; {currentYear} Built by <a href="https://www.isaiahdavis.com">Isaiah Davis Designs</a></small></p>
       </footer>
     </>
   )

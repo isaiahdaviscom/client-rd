@@ -1,10 +1,17 @@
 import { useState, useEffect } from "react";
 
 const ServiceForm = ({ selectedServices }) => {
-  const [services, setServices] = useState([]);
   return (
     <>
-      <iframe id="booking" title="Book an appointment" src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1IzgFClpTVIoOMKDzoFrsC2I7dDKv7iQLAVqSHU_7CPf5XxmkbA27387UIBRf6PIY5m2d9iq-X?gv=true" style={{ border: 0, width: "100%" }} width={100} height={700} frameborder={0}></iframe>
+      <iframe
+        id="booking"
+        title="Book an appointment"
+        style={{ marginRight: "-1.5em", marginLeft: "-1.5em", width: "calc(100vw - 62px)" }}
+        src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2C18CQWGd0iJPrxcw5B7lACsoutodekVzDYIDHxKwlaH9uKf5pt-4DCNPUn2MYhUad7umefWAv?gv=true"
+        width={100}
+        height={700}
+        frameBorder={0}>
+      </iframe>
     </>
   );
 };

@@ -1,5 +1,6 @@
 //
 import Head from "next/head";
+
 import Header from "@components/Header";
 import Footer from "@components/Footer";
 import ServiceTable from "@components/ServiceTable";
@@ -8,6 +9,8 @@ import HeroCarousel from "@components/HeroCarousel";
 //
 import { useState, useEffect } from "react";
 //
+
+
 
 const slidesMax5 = [
   {
@@ -42,11 +45,44 @@ const services = [
 ];
 
 export default function Home() {
+  const [status, setStatus] = useState("");
+
+  useEffect(() => {
+    function updateStatus() {
+      // Check online status
+      if (typeof window !== "undefined" && !window.navigator.onLine) {
+        setStatus("offline");
+        return;
+      }
+
+      // Check the time and weekday
+      const centralTime = new Date(
+        new Date().toLocaleString("en-US", { timeZone: "America/Chicago" })
+      );
+      const hour = centralTime.getHours();
+      const dayOfWeek = centralTime.getDay();
+
+      if (hour >= 2 && hour < 17 && dayOfWeek >= 1 && dayOfWeek <= 7) {
+        setStatus("online");
+      } else {
+        setStatus("offline");
+      }
+    }
+
+    updateStatus();
+
+    // Check every minute
+    const interval = setInterval(updateStatus, 60 * 1000);
+
+    // Cleanup on component unmount
+    return () => clearInterval(interval);
+  }, []);
   return (
     <>
       <Head>
         <title>Custom Fades</title>
         <link rel="icon" href="/favicon.ico" />
+        <body className={status} />
       </Head>
 
       <Header />
@@ -62,7 +98,7 @@ export default function Home() {
             <ServiceForm />
           </div>
         </section>
-        <section id="about">
+        <section id="about" style={{ marginBottom: "4em" }}>
           <div className="sticky dark-bg"></div>
           <div className="container row">
             <div className="col-6 text-white" style={{ width: "66.6666%" }}>
@@ -84,121 +120,97 @@ export default function Home() {
               <img
                 style={{ display: "block", margin: "0 auto" }}
                 className="full-width"
-                src="/images/robert-davis-profile-revised.png"
+                src="/images/robert-davis-profile.png"
                 alt="Portrait photo of Robert Davis, Owner of Custom Fades Barber Shop"
               />
             </div>
           </div>
         </section>
-        {/* <section id="merch">
+        <section id="work">
+          <div className="sticky dark-bg"></div>
           <div class="container">
-            <h3 className="display text-white">Products</h3>
-          </div>
-        </section> */}
-        <section id="contact">
-          <div className="container">
             <h3 style={{ marginBottom: "1em" }} className="display text-white">
               Wall of Fades
             </h3>
-            <div class="insta-list">
+            <div className="insta-list">
               <div
                 style={{
-                  backgroundImage:
-                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                  backgroundImage: "url('/images/client-01.jpg')",
                 }}
               ></div>
               <div
                 style={{
-                  backgroundImage:
-                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                  backgroundImage: "url('/images/client-02.jpg')",
                 }}
               ></div>
               <div
                 style={{
-                  backgroundImage:
-                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                  backgroundImage: "url('/images/client-03.jpg')",
                 }}
               ></div>
               <div
                 style={{
-                  backgroundImage:
-                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                  backgroundImage: "url('/images/client-04.jpg')",
                 }}
               ></div>
               <div
                 style={{
-                  backgroundImage:
-                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                  backgroundImage: "url('/images/client-05.jpg')",
                 }}
               ></div>
               <div
                 style={{
-                  backgroundImage:
-                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                  backgroundImage: "url('/images/client-06.jpg')",
                 }}
               ></div>
               <div
                 style={{
-                  backgroundImage:
-                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                  backgroundImage: "url('/images/client-07.jpg')",
                 }}
               ></div>
               <div
                 style={{
-                  backgroundImage:
-                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                  backgroundImage: "url('/images/client-08.jpg')",
                 }}
               ></div>
               <div
                 style={{
-                  backgroundImage:
-                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                  backgroundImage: "url('/images/client-09.jpg')",
                 }}
               ></div>
               <div
                 style={{
-                  backgroundImage:
-                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
+                  backgroundImage: "url('/images/client-10.jpg')",
                 }}
               ></div>
-              <div
-                style={{
-                  backgroundImage:
-                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
-                }}
-              ></div>
-              <div
-                style={{
-                  backgroundImage:
-                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
-                }}
-              ></div>
-              <div
-                style={{
-                  backgroundImage:
-                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
-                }}
-              ></div>
-              <div
-                style={{
-                  backgroundImage:
-                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
-                }}
-              ></div>
-              <div
-                style={{
-                  backgroundImage:
-                    "url('https://ballsbarbershop.com.ua/img/insta-15.d8f63c2b.jpg')",
-                }}
-              ></div>
-              <a
+              {/* <a
                 className="button primary"
                 href="https://www.instagram.com/ballsbarbershopkyiv/"
                 target="_blank"
               >
                 View Instagram
-              </a>
+              </a> */}
             </div>
+          </div>
+        </section>
+        <section id="contact">
+          <div className="sticky dark-bg"></div>
+          <div className="container">
+            <h3 className="display text-white">Contact</h3>
+            <form name="contact" netlify>
+              <label className="col-6 d-block">
+                Name <input type="text" name="name" />
+              </label>
+              <label className="col-6 d-block">
+                Email <input type="email" name="email" />
+              </label>
+              <label className="col-12">
+                Question <textarea name="comment" />
+              </label>
+              <button type="submit" className="button primary">
+                Send
+              </button>
+            </form>
           </div>
         </section>
       </main>

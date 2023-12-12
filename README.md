@@ -1,4 +1,7 @@
+
 # Next + Netlify Starter
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4884826a-6cf3-4a44-aac5-e5903ec52424/deploy-status)](https://app.netlify.com/sites/customfades/deploys)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/46648482-644c-4c80-bafb-872057e51b6b/deploy-status)](https://app.netlify.com/sites/next-dev-starter/deploys)
 
@@ -10,14 +13,24 @@ This project is a very minimal starter that includes 2 sample components, a glob
 
 (If you click this button, it will create a new repo for you that looks exactly like this one, and sets that repo up immediately for deployment on Netlify)
 
-## Table of Contents:
+## Table of Contents
 
-- [Getting Started](#getting-started)
-- [Installation options](#installation-options)
-- [Testing](#testing)
-  - [Included Default Testing](#included-default-testing)
-  - [Removing Renovate](#removing-renovate)
-  - [Removing Cypress](#removing-cypress)
+- [Next + Netlify Starter](#next--netlify-starter)
+  - [Table of Contents](#table-of-contents)
+  - [Getting Started](#getting-started)
+    - [Installation options](#installation-options)
+  - [Testing](#testing)
+    - [Included Default Testing](#included-default-testing)
+    - [Removing Renovate](#removing-renovate)
+    - [Removing Cypress](#removing-cypress)
+  - [Connect Netlify Forms to Google Gmail](#connect-netlify-forms-to-google-gmail)
+    - [1 Set up a Netlify Site](#1-set-up-a-netlify-site)
+    - [2. Create a Netlify Form](#2-create-a-netlify-form)
+    - [3. Create a Netlify Serverless Function](#3-create-a-netlify-serverless-function)
+    - [4. Install Dependencies](#4-install-dependencies)
+    - [5. Deploy Your Site](#5-deploy-your-site)
+    - [6. Set Environment Variables](#6-set-environment-variables)
+    - [7. Test Your Form](#7-test-your-form)
 
 ## Getting Started
 
@@ -88,3 +101,95 @@ And lastly if you’d like to remove Cypress entirely, delete the entire `cypres
 ```bash
 npm uninstall -S cypress
 ```
+
+## Connect Netlify Forms to Google Gmail
+
+### 1 Set up a Netlify Site
+
+If you don't have a Netlify site, create one by following the steps on the Netlify website.
+
+### 2. Create a Netlify Form
+
+Add a form to your HTML with the necessary input fields. Netlify will automatically handle form submissions.
+
+```html
+<!-- index.html -->
+<form name="contact" method="post" netlify>
+  <label for="name">Name:</label>
+  <input type="text" name="name" required>
+
+  <label for="email">Email:</label>
+  <input type="email" name="email" required>
+
+  <label for="message">Message:</label>
+  <textarea name="message" required></textarea>
+
+  <button type="submit">Submit</button>
+</form>
+```
+
+### 3. Create a Netlify Serverless Function
+
+Create a functions folder at the root of your project. Inside it, create a file named sendEmail.js with the following code:
+
+```javascript
+// functions/sendEmail.js
+const nodemailer = require('nodemailer');
+
+exports.handler = async function (event, context) {
+  const data = JSON.parse(event.body);
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: '<your@gmail.com>', // your Gmail address
+      pass: 'your-gmail-password', // your Gmail password or app-specific password
+    },
+  });
+
+  const mailOptions = {
+    from: '<your@gmail.com>',
+    to: '<recipient@gmail.com>', // recipient's email address
+    subject: 'New Form Submission',
+    text: `Name: ${data.name}\nEmail: ${data.email}\nMessage: ${data.message}`,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: 'Email sent successfully' }),
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ message: 'Error sending email' }),
+    };
+  }
+};
+```
+
+### 4. Install Dependencies
+
+Run the following command in your terminal to install the required Node.js packages:
+
+```bash
+npm install nodemailer
+```
+
+### 5. Deploy Your Site
+
+Deploy your site to Netlify using the Netlify CLI or by connecting your Git repository to Netlify.
+
+### 6. Set Environment Variables
+
+In your Netlify site dashboard, go to "Settings" > "Build & deploy" > "Environment" and add the following environment variables:
+
+GMAIL_USER: your Gmail address
+GMAIL_PASS: your Gmail password or app-specific password
+
+### 7. Test Your Form
+
+Submit a form on your site and check if the email is sent to the specified Gmail address.
+
+Note: Storing sensitive information like passwords directly in your code or environment variables is not recommended. Consider using environment variables and a secure method for handling secrets in production environments.

@@ -1,6 +1,6 @@
 // components/HeroCarousel.js
 import { useReducer } from 'react';
-import styles from './HeroCarousel.module.css'; // Create a corresponding CSS module file
+import styles from '@components/HeroCarousel.module.css'; // Create a corresponding CSS module file
 
 const initialState = {
   currentSlide: 0,
