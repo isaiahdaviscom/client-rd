@@ -45,7 +45,7 @@ const services = [
 ];
 
 export default function Home() {
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("checking");
 
   useEffect(() => {
     function updateStatus() {
