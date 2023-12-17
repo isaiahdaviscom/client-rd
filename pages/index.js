@@ -173,11 +173,6 @@ export default function Home() {
                   <iframe
                     id="booking"
                     title="Book an appointment"
-                    style={{
-                      marginRight: "-1.5em",
-                      marginLeft: "-1.5em",
-                      width: "100%",
-                    }}
                     src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2C18CQWGd0iJPrxcw5B7lACsoutodekVzDYIDHxKwlaH9uKf5pt-4DCNPUn2MYhUad7umefWAv?gv=true"
                     width={100}
                     height={700}
@@ -201,11 +196,6 @@ export default function Home() {
                   <iframe
                     id="booking"
                     title="Book an appointment"
-                    style={{
-                      marginRight: "-1.5em",
-                      marginLeft: "-1.5em",
-                      width: "100%",
-                    }}
                     src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2C18CQWGd0iJPrxcw5B7lACsoutodekVzDYIDHxKwlaH9uKf5pt-4DCNPUn2MYhUad7umefWAv?gv=true"
                     width={100}
                     height={700}
