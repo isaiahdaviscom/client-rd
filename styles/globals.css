@@ -343,14 +343,12 @@ h3 {
   padding-bottom: 151px;
 }
 
+.booking {
+  width: 100%;
+}
+
 /* Media Queries */
 @media screen and (max-width: 768px) {
-  #booking {
-    /* margin-left: -1em !important;
-    margin-right: 0 !important;
-    width: calc(100vw) !important; */
-  }
-
   .row {
     flex-direction: column-reverse;
   }
