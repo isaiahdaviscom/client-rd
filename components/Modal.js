@@ -65,8 +65,6 @@ const Modal = ({ isOpen, onClose, children }) => {
               cursor: 'pointer',
             }}
           ><Cross /></button>
-          <h2>Modal Content</h2>
-          <p>This is the content of the modal.</p>
           {children}
         </div>
       </div>,
