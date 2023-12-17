@@ -3,29 +3,28 @@ import Head from "next/head";
 
 import Header from "@components/Header";
 import Footer from "@components/Footer";
+import ContactForm from "@components/ContactForm";
+
 // import ServiceTable from "@components/ServiceTable";
-import ServiceForm from "@components/ServiceForm";
+// import ServiceForm from "@components/ServiceForm";
 import HeroCarousel from "@components/HeroCarousel";
+import Modal from "@components/Modal";
+import ImageGallery from "@components/ImageGallery";
 //
 import { useState, useEffect } from "react";
-//
+import ProfileImage from "@components/ProfileImage";
+import Contact from "@components/Contact";
+// import SplineScene from "@components/SplineScene";
+// import AnimatedBusinessStatus from "@components/AnimatedBusinessStatus";
 
 const slidesMax5 = [
   {
-    mainImage: "/images/showroom/display-1.jpg",
+    mainImage: "/images/hero-clippers.webp",
     thumbnail: "/images/showroom/display-1-thumbnail.jpg",
     title: "Slide 1",
     description: "Description for Slide 1",
     cta: "Learn More",
-  },
-  {
-    mainImage: "/images/showroom/display-2.jpg",
-    thumbnail: "/images/showroom/display-1-thumbnail.jpg",
-    title: "Slide 2",
-    description: "Description for Slide 2",
-    cta: "Discover",
-  },
-  // Add more slides as needed
+  }
 ];
 
 const services = [
@@ -44,62 +43,183 @@ const services = [
 
 export default function Home() {
   const [status, setStatus] = useState("checking");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [metaTitle, setMetaTitle] = useState("Custom Fades");
 
-  useEffect(() => {
-    function updateStatus() {
-      // Check online status
-      if (typeof window !== "undefined" && !window.navigator.onLine) {
-        setStatus("offline");
-        return;
-      }
+  // useEffect(() => {
+  //   function updateStatus() {
+  //     // Check online status
+  //     if (typeof window !== "undefined" && !window.navigator.onLine) {
+  //       setStatus("offline");
+  //       return;
+  //     }
 
-      // Check the time and weekday
-      const centralTime = new Date(
-        new Date().toLocaleString("en-US", { timeZone: "America/Chicago" })
-      );
-      const hour = centralTime.getHours();
-      const dayOfWeek = centralTime.getDay();
+  //     // Check the time and weekday
+  //     const centralTime = new Date(
+  //       new Date().toLocaleString("en-US", { timeZone: "America/Chicago" })
+  //     );
+  //     const hour = centralTime.getHours();
+  //     const dayOfWeek = centralTime.getDay();
 
-      if (hour >= 2 && hour < 17 && dayOfWeek >= 1 && dayOfWeek <= 7) {
-        setStatus("online");
-      } else {
-        setStatus("offline");
-      }
+  //     if (hour >= 2 && hour < 17 && dayOfWeek >= 1 && dayOfWeek <= 7) {
+  //       setStatus("online");
+  //     } else {
+  //       setStatus("offline");
+  //     }
+  //   }
+
+  //   updateStatus();
+
+  //   // Check every minute
+  //   const interval = setInterval(updateStatus, 60 * 1000);
+
+  //   // Cleanup on component unmount
+  //   return () => clearInterval(interval);
+  // }, []);
+
+  const handleModalToggle = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const scrollToSection = (sectionName) => () => {
+    const section = document.getElementById(sectionName);
+
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
     }
+  };
 
-    updateStatus();
-
-    // Check every minute
-    const interval = setInterval(updateStatus, 60 * 1000);
-
-    // Cleanup on component unmount
-    return () => clearInterval(interval);
-  }, []);
   return (
     <>
       <Head>
-        <title>Custom Fades</title>
+        <title>{metaTitle}</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="icon" href="/favicon.ico" />
         {/* <body className={status} /> */}
       </Head>
 
       <Header />
-      <main>
-        <section id="work" className="hero">
-          <HeroCarousel slides={slidesMax5} />
-        </section>
-        <section id="services" className="background-white">
-          <div className="sticky light-bg"></div>
-          <div className="container">
-            <h3>Services</h3>
-            {/* <ServiceTable services={services} /> */}
-            <ServiceForm />
+      <section id="home" className="hero">
+        <HeroCarousel slides={slidesMax5} />
+        <div
+          id="hero-overlay"
+          style={{
+            position: "absolute",
+            width: "75%",
+            margin: "0 auto",
+            height: "auto",
+            inset: "20% 0%",
+          }}
+        >
+          <picture>
+            <source
+              media="(max-width: 768px)"
+              srcSet="/images/logo-white-stacked.svg"
+            />
+            <img src="/images/logo-white-arch.svg" alt="" />
+          </picture>
+          <div className="skip" style={{ textAlign: "center" }}>
+            <button
+              className="text text-white"
+              onClick={scrollToSection("services")}
+              style={{ marginBottom: "1em" }}
+            >
+              Let's Get Started!
+            </button>
+            <br />
+            <button
+              className="button primary"
+              onClick={scrollToSection("services")}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 2 L12 18 M7 13 L12 18 L17 13" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        {/* <AnimatedBusinessStatus /> */}
+      </section>
+      <main id="content">
+        {/* <SplineScene /> */}
+        <section id="services" className="light-bg">
+          <div className="sticky"></div>
+          <div className="container text-center">
+            <h3 className="display">Services</h3>
+            <p>Let's get you right! Select the your haircut.</p>
+            <div className="row">
+              <div className="col-6 justify-content-center flex-column">
+                <img
+                  src="/images/icons/service-haircuit.svg" // Replace with the path to your image
+                  alt="Open Modal"
+                  onClick={handleModalToggle}
+                  width={150}
+                  height={84}
+                  tabIndex={0}
+                  style={{ width: "50%", height: "auto", aspectRatio: "1/1.2" }}
+                />
+                <h4>Haircut</h4>
+                <Modal isOpen={isModalOpen} onClose={handleModalToggle}>
+                  {/* Content of your modal */}
+                  <iframe
+                    id="booking"
+                    title="Book an appointment"
+                    style={{
+                      marginRight: "-1.5em",
+                      marginLeft: "-1.5em",
+                      width: "100%",
+                    }}
+                    src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2C18CQWGd0iJPrxcw5B7lACsoutodekVzDYIDHxKwlaH9uKf5pt-4DCNPUn2MYhUad7umefWAv?gv=true"
+                    width={100}
+                    height={700}
+                    frameBorder={0}
+                  />
+                </Modal>
+              </div>
+              <div className="col-6 justify-content-center flex-column">
+                <img
+                  src="/images/icons/service-haircuit-beard.svg" // Replace with the path to your image
+                  alt="Open Modal"
+                  onClick={handleModalToggle}
+                  width={150}
+                  height={84}
+                  tabIndex={0}
+                  style={{ width: "50%", height: "auto", aspectRatio: "1/1.2" }}
+                />
+                <h4>Haircut + Beard</h4>
+                <Modal isOpen={isModalOpen} onClose={handleModalToggle}>
+                  {/* Content of your modal */}
+                  <iframe
+                    id="booking"
+                    title="Book an appointment"
+                    style={{
+                      marginRight: "-1.5em",
+                      marginLeft: "-1.5em",
+                      width: "100%",
+                    }}
+                    src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2C18CQWGd0iJPrxcw5B7lACsoutodekVzDYIDHxKwlaH9uKf5pt-4DCNPUn2MYhUad7umefWAv?gv=true"
+                    width={100}
+                    height={700}
+                    frameBorder={0}
+                  />
+                </Modal>
+              </div>
+            </div>
           </div>
         </section>
-        <section id="about" style={{ marginBottom: "4em" }}>
-          <div className="sticky dark-bg"></div>
+        <section id="about" className="dark-bg">
+          <div className="sticky"></div>
           <div className="container row">
-            <div className="col-6 text-white" style={{ width: "66.6666%" }}>
+            <div className="col-6 text-white">
               <h3 className="display">About Me</h3>
               <p>
                 Yo, it's Custom Fades – beyond cuts, it's a whole vibe! I'm Rob,
@@ -110,105 +230,41 @@ export default function Home() {
                 #CustomFades #BlackExcellence
               </p>
               <p>Lets get you cleaned up!</p>
-              <a href="#services" className="button primary">
-                Set Appointment
-              </a>
-            </div>
-            <div className="col-6 logo-black" style={{ width: "33.3333%" }}>
-              <img
-                style={{ display: "block", margin: "0 auto" }}
-                className="full-width"
-                src="/images/robert-davis-profile.png"
-                alt="Portrait photo of Robert Davis, Owner of Custom Fades Barber Shop"
-              />
-            </div>
-          </div>
-        </section>
-        <section id="work">
-          <div className="sticky dark-bg"></div>
-          <div class="container">
-            <h3 style={{ marginBottom: "1em" }} className="display text-white">
-              Wall of Fades
-            </h3>
-            <div className="insta-list">
-              <div
-                style={{
-                  backgroundImage: "url('/images/client-01.jpg')",
-                }}
-              ></div>
-              <div
-                style={{
-                  backgroundImage: "url('/images/client-02.jpg')",
-                }}
-              ></div>
-              <div
-                style={{
-                  backgroundImage: "url('/images/client-03.jpg')",
-                }}
-              ></div>
-              <div
-                style={{
-                  backgroundImage: "url('/images/client-04.jpg')",
-                }}
-              ></div>
-              <div
-                style={{
-                  backgroundImage: "url('/images/client-05.jpg')",
-                }}
-              ></div>
-              <div
-                style={{
-                  backgroundImage: "url('/images/client-06.jpg')",
-                }}
-              ></div>
-              <div
-                style={{
-                  backgroundImage: "url('/images/client-07.jpg')",
-                }}
-              ></div>
-              <div
-                style={{
-                  backgroundImage: "url('/images/client-08.jpg')",
-                }}
-              ></div>
-              <div
-                style={{
-                  backgroundImage: "url('/images/client-09.jpg')",
-                }}
-              ></div>
-              <div
-                style={{
-                  backgroundImage: "url('/images/client-10.jpg')",
-                }}
-              ></div>
-              {/* <a
+              <button
                 className="button primary"
-                href="https://www.instagram.com/ballsbarbershopkyiv/"
-                target="_blank"
+                onClick={scrollToSection("services")}
               >
-                View Instagram
-              </a> */}
+                Set Appointment
+              </button>
+            </div>
+            <div className="col-6">
+              <ProfileImage />
             </div>
           </div>
         </section>
-        <section id="contact">
-          <div className="sticky dark-bg"></div>
+        <section id="merch" className="dark-bg">
+          <div className="sticky"></div>
           <div className="container">
-            <h3 className="display text-white">Contact</h3>
-            <form name="contact" netlify>
-              <label className="col-6 d-block">
-                Name <input type="text" name="name" />
-              </label>
-              <label className="col-6 d-block">
-                Email <input type="email" name="email" />
-              </label>
-              <label className="col-12">
-                Question <textarea name="comment" />
-              </label>
-              <button type="submit" className="button primary">
-                Send
-              </button>
-            </form>
+            <h3 className="display">Wall of Fades</h3>
+            <p>You're up next!</p>
+          </div>
+          <div>
+            <ImageGallery />
+          </div>
+        </section>
+        <section id="contact" className="dark-bg">
+          <div className="sticky"></div>
+          <div className="container">
+            <div className="row">
+              <div className="col-6">
+                <h3 className="display text-white">Find Me</h3>
+                <Contact />
+              </div>
+              <div className="col-6">
+                <h3 className="display text-white">Contact</h3>
+                <ContactForm />
+              </div>
+            </div>
           </div>
         </section>
       </main>

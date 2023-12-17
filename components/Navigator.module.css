@@ -1,0 +1,15 @@
+.icon-container {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  aspect-ratio: 1/1;
+  display: block;
+}
+
+.icon-container img {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  aspect-ratio: 1/1;
+  display: block;
+}

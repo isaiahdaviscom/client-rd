@@ -9,6 +9,13 @@ const GTM = () => {
   const router = useRouter();
 
   useEffect(() => {
+    // Append preconnect for Google Tag Manager
+    const preconnectLink = document.createElement('link');
+    preconnectLink.rel = 'preconnect';
+    preconnectLink.href = 'https://www.googletagmanager.com';
+    document.head.appendChild(preconnectLink);
+
+    // Initialize Google Tag Manager
     TagManager.initialize({ gtmId: GTM_ID });
 
     // Trigger GTM on route change

@@ -1,0 +1,23 @@
+/* ProfileImage.module.css */
+
+#profile {
+  display: block;
+  margin: 0 auto;
+}
+
+.full-width {
+  width: 100%;
+  height: auto;
+}
+
+.logo-black {
+  /* Add any specific styles for the "logo-black" class if needed */
+}
+
+.text-center {
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-align: center;
+}

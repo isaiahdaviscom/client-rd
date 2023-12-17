@@ -1,0 +1,42 @@
+/* styles/Modal.module.css */
+
+/* Style for the modal overlay */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* Style for the modal content */
+.modalContent {
+  background: #fff;
+  padding: 20px;
+  width: 100%;
+  max-width: calc(100% - 40px);
+  /* Adjusted to account for padding */
+  /* max-height: calc(100% - 40px); */
+  /* Adjusted to account for padding */
+  overflow-y: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Hide the scrollbar in the modal content, but still allow scrolling */
+.modalContent::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+.modalContent::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+}
+
+.modalContent::-webkit-scrollbar-track {
+  background: transparent;
+}

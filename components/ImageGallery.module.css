@@ -1,0 +1,26 @@
+/* ImageGallery.module.css */
+
+.instaList {
+  display: grid;
+  grid-template-columns: 1fr repeat(4, 1fr);
+  gap: 16px;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+@media screen and (max-width: 478px){
+  .instaList {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+
+.galleryItem {
+  width:100%;
+  height: auto;
+  aspect-ratio: 1/1;
+  /* Set the height of your gallery items */
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+}
