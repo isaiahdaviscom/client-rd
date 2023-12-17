@@ -227,7 +227,7 @@ export default function Home() {
                 excellence, blending tradition with trends. Every cut tells YOUR
                 story. From classic fades to unique designs, I'm your architect
                 of style. Step in for an experience, not just a cut. 🔥💈
-                #CustomFades #BlackExcellence
+                #CustomFades
               </p>
               <p>Lets get you cleaned up!</p>
               <button
